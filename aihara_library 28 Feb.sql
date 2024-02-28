@@ -135,3 +135,21 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/* SELECT DISTINCT e.Name
+FROM Employee e
+JOIN Loan l ON e.Emp_no = l.Emp_no
+JOIN Books b ON l.isbn = b.isbn
+WHERE b.Publisher = 'Scribner'; */
+
+/* SELECT e.Name
+FROM Employee e
+WHERE (
+    SELECT COUNT(DISTINCT b.isbn)
+    FROM Books b
+    WHERE b.Publisher = 'Scribner'
+) = (
+    SELECT COUNT(DISTINCT l.isbn)
+    FROM Loan l
+    JOIN Books b ON l.isbn = b.isbn
+    WHERE b.Publisher = 'Scribner' AND l.Emp_no = e.Emp_no
+); */
